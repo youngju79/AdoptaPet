@@ -13,7 +13,7 @@ if (env('APP_ENV') !== 'local') {
 }
 
 Route::get('/', [PetController::class, 'index'])->name('pet.index');
-Route::get('/pets/{id}', [PetController::class, 'show'])->name('pet.show');
+Route::get('/pets/{id}/show', [PetController::class, 'show'])->name('pet.show');
 
 Route::get('/about', function(){ return view('about'); })->name('about');
 
