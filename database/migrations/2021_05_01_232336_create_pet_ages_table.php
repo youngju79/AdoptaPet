@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\PetAge;
 
-class CreateUsersTable extends Migration
+class CreatePetAgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +14,24 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pet_ages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            // $table->rememberToken();
             $table->timestamps();
         });
+
+        $ages = [
+            'Baby',
+            'Young',
+            'Adult',
+            'Senior'
+        ];
+
+        foreach($ages as $age){
+            PetAge::create([
+                'name' => $age
+            ]);
+        }
     }
 
     /**
@@ -31,6 +41,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pet_ages');
     }
 }

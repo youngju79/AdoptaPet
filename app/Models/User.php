@@ -40,4 +40,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasListedPets()
+    {
+        return $this->hasMany(Pet::class)->count() > 0;
+    }
+    public function listedPets()
+    {
+        return $this->hasMany(Pet::class)->with(['gender', 'age']);
+    }
+    public function hasFavoritedPets()
+    {
+        return $this->hasMany(Favorite::class)->count() > 0;
+    }
+    public function favoritedPets()
+    {
+        return $this->hasMany(Favorite::class)->with(['pet.gender', 'pet.age']);;
+    }
+    public function hasFavorite($id)
+    {
+        return $this->hasMany(Favorite::class)->where('pet_id', '=', $id)->count() > 0;
+    }
+    public function getFavoriteId($id)
+    {
+        return $this->hasMany(Favorite::class)->where('pet_id', '=', $id)->first()->id;
+    }
 }
